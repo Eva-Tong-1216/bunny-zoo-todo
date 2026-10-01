@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>莫蘭迪兔兔動物園 ✦ 待辦・記帳・兔兔養成手帳</title>
+  <style>
+    /* ==========================================================================
+       莫蘭迪色票系統 (Morandi Theme System: Light & Dark)
+       ========================================================================== */
+    :root {
+      /* 日間模式 (Morandi Day) */
+      --bg-cream: #FAF7F2;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F3EFEA;
+      --border-soft: #E7DFD5;
+      --border-hover: #D5C9BC;
+
+      --text-main: #423E3C;
+      --text-muted: #857C76;
+      --text-light: #AEA59E;
+
+      --morandi-primary: #7C8F79;
+      --morandi-primary-hover: #697B66;
+      --morandi-primary-light: #EBF0EA;
+      --morandi-blue: #6F859C;
+      --morandi-blue-light: #E5ECF2;
+      --morandi-clay: #BA7D79;
+      --morandi-clay-light: #F4E7E6;
+      --morandi-amber: #B89672;
+      --morandi-amber-light: #F3ECE3;
+      --morandi-purple: #8B7A99;
+      --morandi-purple-light: #EDE7F2;
+
+      /* 待辦事項分類色塊 (Morandi Tags) */
+      --tag-exam-bg: #F4E7E6;
+      --tag-exam-text: #96534F;
+      --tag-exam-border: #DFBDBB;
+
+      --tag-class-bg: #E5ECF2;
+      --tag-class-text: #49667E;
+      --tag-class-border: #BDD0DF;
+
+      --tag-work-bg: #F3ECE3;
+      --tag-work-text: #8A6440;
+      --tag-work-border: #DEC8B0;
+
+      --tag-sport-bg: #E7EFE6;
+      --tag-sport-text: #4E6E49;
+      --tag-sport-border: #BFD3BD;
+
+      --tag-family-bg: #EFEBE7;
+      --tag-family-text: #786052;
+      --tag-family-border: #D5C8BF;
+
+      --tag-other-bg: #EDE7F2;
+      --tag-other-text: #695678;
+      --tag-other-border: #CEBFDA;
+
+      --shadow-sm: 0 2px 6px rgba(70, 60, 50, 0.04);
+      --shadow-md: 0 8px 20px rgba(70, 60, 50, 0.06);
+      --shadow-lg: 0 14px 30px rgba(70, 60, 50, 0.08);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    /* 夜間模式 (Morandi Midnight Dark Mode) */
+    [data-theme="dark"] {
+      --bg-cream: #1C1F22;
+      --bg-card: #262B30;
+      --bg-subtle: #202428;
+      --border-soft: #39424A;
+      --border-hover: #4E5964;
+
+      --text-main: #ECE8E1;
+      --text-muted: #A6A096;
+      --text-light: #777169;
+
+      --morandi-primary: #8EA48B;
+      --morandi-primary-hover: #9FB59C;
+      --morandi-primary-light: #2D382B;
+      --morandi-blue: #849EB8;
+      --morandi-blue-light: #273440;
+      --morandi-clay: #D1928E;
+      --morandi-clay-light: #3D2B2A;
+      --morandi-amber: #C9A984;
+      --morandi-amber-light: #382F24;
+      --morandi-purple: #A593B4;
+      --morandi-purple-light: #322A3A;
+
+      /* 暗色模式分類標籤微調 */
+      --tag-exam-bg: #3E2D2C;
+      --tag-exam-text: #E5A8A4;
+      --tag-exam-border: #684846;
+
+      --tag-class-bg: #263542;
+      --tag-class-text: #9FC1DC;
+      --tag-class-border: #3E576C;
+
+      --tag-work-bg: #3B3125;
+      --tag-work-text: #DFBA93;
+      --tag-work-border: #63503B;
+
+      --tag-sport-bg: #293828;
+      --tag-sport-text: #A8CCA4;
+      --tag-sport-border: #425D40;
+
+      --tag-family-bg: #35302C;
+      --tag-family-text: #D5C1B3;
+      --tag-family-border: #564B43;
+
+      --tag-other-bg: #362D3E;
+      --tag-other-text: #CBB9DC;
+      --tag-other-border: #584666;
+
+      --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 14px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Roboto, sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 28px 16px 80px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 背景兔子動物園裝飾紋理 */
+    .paw-bg {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 12% 15%, rgba(139, 122, 153, 0.05) 6px, transparent 7px),
+        radial-gradient(circle at 88% 30%, rgba(124, 143, 121, 0.05) 8px, transparent 9px),
+        radial-gradient(circle at 20% 75%, rgba(186, 125, 121, 0.05) 7px, transparent 8px),
+        radial-gradient(circle at 82% 85%, rgba(184, 150, 114, 0.05) 9px, transparent 10px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 780px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ==========================================================================
+       1. 招牌橫幅與頂部導覽 (Header & Theme Toggle)
+       ========================================================================== */
+    .zoo-header {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .bunny-avatar-box {
+      width: 58px;
+      height: 58px;
+      background: var(--bg-subtle);
+      border: 2px solid var(--border-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      animation: gentle-bob 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes gentle-bob {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-4px) rotate(2deg); }
+    }
+
+    .zoo-titles h1 {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .zoo-titles .badge {
+      font-size: 11px;
+      background: var(--morandi-primary-light);
+      color: var(--morandi-primary);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      border: 1px solid var(--morandi-primary);
+    }
+
+    .zoo-titles p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* 右側功能按鈕群 (頁籤 + 日夜模式) */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-soft);
+      padding: 4px;
+      border-radius: 30px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 7px 15px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 日夜切換開關 */
+    .theme-toggle-btn {
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-soft);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--morandi-amber);
+      transform: scale(1.05);
+    }
+
+    /* ==========================================================================
+       2. 每日簽到與兔兔農場養成 (Carrot Ranch & Check-in)
+       ========================================================================== */
+    .ranch-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background-image: linear-gradient(135deg, rgba(124, 143, 121, 0.05) 0%, rgba(184, 150, 114, 0.05) 100%);
+    }
+
+    .ranch-top-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .ranch-title-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ranch-title-area h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .checkin-btn {
+      background: var(--morandi-amber);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .checkin-btn:hover:not(:disabled) {
+      background: #A68461;
+      transform: translateY(-1px);
+    }
+
+    .checkin-btn:disabled {
+      background: var(--border-soft);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* 兔子展示區與胡蘿蔔進度條 */
+    .ranch-bunnies-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 580px) {
+      .ranch-bunnies-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .bunny-card {
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bunny-card.locked {
+      opacity: 0.65;
+      border-style: dashed;
+    }
+
+    .bunny-card .bunny-illus {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .bunny-card-info h4 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bunny-card-info p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* 胡蘿蔔餵食進度條與動作 */
+    .carrot-progress-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+
+    .carrot-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .carrot-count-badge {
+      color: #D97706;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 10px;
+      background: var(--border-soft);
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #F59E0B, #E18A07);
+      border-radius: 5px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    .feed-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .feed-btn {
+      background: var(--morandi-primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 14px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .feed-btn:hover:not(:disabled) {
+      background: var(--morandi-primary-hover);
+    }
+
+    .feed-btn:disabled {
+      background: var(--border-soft);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+
+    /* ==========================================================================
+       3. 每日氣象與降雨量圖騰 (Weather Card)
+       ========================================================================== */
+    .weather-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .weather-info-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .weather-totem-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--morandi-blue-light);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--morandi-blue);
+      flex-shrink: 0;
+    }
+
+    .weather-text h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .weather-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .weather-select {
+      border: 1px solid var(--border-soft);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .weather-metrics {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-subtle);
+      padding: 8px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .metric-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .metric-icon.rain {
+      background: var(--morandi-blue-light);
+      color: var(--morandi-blue);
+    }
+
+    .metric-icon.temp {
+      background: var(--morandi-clay-light);
+      color: var(--morandi-clay);
+    }
+
+    .metric-label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    .metric-value {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       4. 待辦事項 (支援日期、時間、分類、三大分區)
+       ========================================================================== */
+    .app-section {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .app-section.hidden {
+      display: none;
+    }
+
+    .add-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .add-form-main-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .text-input {
+      flex: 1;
+      padding: 11px 15px;
+      font-size: 14.5px;
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .text-input:focus {
+      border-color: var(--morandi-primary);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 3px rgba(124, 143, 121, 0.15);
+    }
+
+    /* 日期與時間選擇列 */
+    .add-form-datetime-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .datetime-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .datetime-input {
+      padding: 7px 10px;
+      font-size: 13px;
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .datetime-input:focus {
+      border-color: var(--morandi-primary);
+    }
+
+    .btn-primary {
+      background-color: var(--morandi-primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 11px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--morandi-primary-hover);
+    }
+
+    /* 分類標籤按鈕 */
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip-radio {
+      display: none;
+    }
+
+    .chip-btn {
+      padding: 5px 12px;
+      border-radius: 18px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chip-exam { background: var(--tag-exam-bg); color: var(--tag-exam-text); border-color: var(--tag-exam-border); }
+    .chip-class { background: var(--tag-class-bg); color: var(--tag-class-text); border-color: var(--tag-class-border); }
+    .chip-work { background: var(--tag-work-bg); color: var(--tag-work-text); border-color: var(--tag-work-border); }
+    .chip-sport { background: var(--tag-sport-bg); color: var(--tag-sport-text); border-color: var(--tag-sport-border); }
+    .chip-family { background: var(--tag-family-bg); color: var(--tag-family-text); border-color: var(--tag-family-border); }
+    .chip-other { background: var(--tag-other-bg); color: var(--tag-other-text); border-color: var(--tag-other-border); }
+
+    .chip-radio:checked + .chip-btn {
+      box-shadow: 0 0 0 2px var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    /* 三大分區狀態看板 */
+    .boards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .status-area {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .area-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px dashed var(--border-soft);
+    }
+
+    .area-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .area-badge {
+      font-size: 11.5px;
+      padding: 2px 9px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .area-pending .area-badge { background: var(--morandi-amber-light); color: var(--morandi-amber); }
+    .area-progress .area-badge { background: var(--morandi-blue-light); color: var(--morandi-blue); }
+    .area-completed .area-badge { background: var(--morandi-primary-light); color: var(--morandi-primary); }
+
+    .todo-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      min-height: 40px;
+    }
+
+    .todo-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .todo-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .todo-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* 勾選方塊 */
+    .status-check-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      border: 2px solid var(--border-soft);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      color: transparent;
+    }
+
+    .todo-card.pending .status-check-btn { border-color: var(--morandi-amber); color: var(--morandi-amber); }
+    .todo-card.progress .status-check-btn { background: var(--morandi-blue-light); border-color: var(--morandi-blue); color: var(--morandi-blue); }
+    .todo-card.completed .status-check-btn { background: var(--morandi-primary); border-color: var(--morandi-primary); color: #FFFFFF; }
+
+    .status-check-btn svg { width: 13px; height: 13px; stroke-width: 2.5; stroke: currentColor; fill: none; }
+
+    .category-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2.5px 7px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      border: 1px solid transparent;
+    }
+
+    .tag-exam { background: var(--tag-exam-bg); color: var(--tag-exam-text); border-color: var(--tag-exam-border); }
+    .tag-class { background: var(--tag-class-bg); color: var(--tag-class-text); border-color: var(--tag-class-border); }
+    .tag-work { background: var(--tag-work-bg); color: var(--tag-work-text); border-color: var(--tag-work-border); }
+    .tag-sport { background: var(--tag-sport-bg); color: var(--tag-sport-text); border-color: var(--tag-sport-border); }
+    .tag-family { background: var(--tag-family-bg); color: var(--tag-family-text); border-color: var(--tag-family-border); }
+    .tag-other { background: var(--tag-other-bg); color: var(--tag-other-text); border-color: var(--tag-other-border); }
+
+    .todo-body-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .todo-title {
+      font-size: 14.5px;
+      color: var(--text-main);
+      word-break: break-word;
+      line-height: 1.35;
+    }
+
+    /* 日期時間小標籤 */
+    .todo-due-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .todo-card.completed .todo-title {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+
+    .todo-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .status-dropdown {
+      font-size: 12px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: var(--bg-card);
+      color: var(--text-main);
+      padding: 4px 6px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .btn-icon-delete {
+      background: transparent;
+      border: none;
+      padding: 6px;
+      border-radius: 6px;
+      color: var(--text-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-icon-delete:hover {
+      background: var(--tag-exam-bg);
+      color: var(--tag-exam-text);
+    }
+
+    .btn-icon-delete svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+    .empty-placeholder {
+      text-align: center;
+      padding: 16px;
+      color: var(--text-light);
+      font-size: 13px;
+      border: 1px dashed var(--border-soft);
+      border-radius: 8px;
+    }
+
+    /* ==========================================================================
+       5. 記帳功能區塊
+       ========================================================================== */
+    .expense-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .expense-stat-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stat-icon-wrapper {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon-wrapper.today { background: var(--morandi-amber-light); color: var(--morandi-amber); }
+    .stat-icon-wrapper.total { background: var(--morandi-primary-light); color: var(--morandi-primary); }
+
+    .stat-content h4 { font-size: 11.5px; color: var(--text-muted); }
+    .stat-content .amount { font-size: 21px; font-weight: 700; color: var(--text-main); margin-top: 2px; }
+
+    .expense-form-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .expense-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    @media (max-width: 650px) {
+      .expense-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .select-input {
+      padding: 11px 12px;
+      font-size: 13.5px;
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .expense-history-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px dashed var(--border-soft);
+    }
+
+    .history-header h3 { font-size: 15.5px; font-weight: 700; color: var(--text-main); }
+
+    .expense-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+
+    .expense-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 15px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-sm);
+    }
+
+    .expense-left { display: flex; align-items: center; gap: 12px; }
+
+    .expense-category-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3.5px 9px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .exp-food { background: #F6ECE3; color: #8F5E36; }
+    .exp-play { background: #EDE5F4; color: #72528A; }
+    .exp-shop { background: #F4E5E8; color: #944D5B; }
+    .exp-traffic { background: #E3ECF0; color: #436A7A; }
+    .exp-other { background: #EDE9E3; color: #6E6354; }
+
+    .expense-name { font-size: 14px; font-weight: 600; color: var(--text-main); }
+    .expense-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .expense-right { display: flex; align-items: center; gap: 12px; }
+    .expense-amount { font-size: 15.5px; font-weight: 700; color: var(--morandi-clay); }
+
+    .zoo-footer-quote {
+      text-align: center;
+      padding: 16px;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="paw-bg"></div>
+
+  <div class="container">
+
+    <!-- ====================================================================
+         1. 招牌橫幅 (Header + 日夜模式開關)
+         ==================================================================== -->
+    <header class="zoo-header">
+      <div class="header-content">
+        <div class="bunny-avatar-box" title="兔兔園長白白：歡迎光臨動物園！🥕">
+          <!-- 向量可愛兔子園長 SVG -->
+          <svg viewBox="0 0 100 100" width="44" height="44">
+            <path d="M 36,45 C 32,20 22,10 32,5 C 42,0 44,25 42,45" fill="#FAF6F0" stroke="#7C8F79" stroke-width="2.5" />
+            <path d="M 35,38 C 33,22 28,14 34,10 C 39,7 40,24 39,38" fill="#F4E7E6" />
+            <path d="M 64,45 C 68,20 78,10 68,5 C 58,0 56,25 58,45" fill="#FAF6F0" stroke="#7C8F79" stroke-width="2.5" />
+            <path d="M 65,38 C 67,22 72,14 66,10 C 61,7 60,24 61,38" fill="#F4E7E6" />
+            <circle cx="50" cy="62" r="30" fill="#FAF6F0" stroke="#7C8F79" stroke-width="2.5" />
+            <ellipse cx="33" cy="68" rx="5" ry="3.5" fill="#F4E7E6" opacity="0.9" />
+            <ellipse cx="67" cy="68" rx="5" ry="3.5" fill="#F4E7E6" opacity="0.9" />
+            <circle cx="39" cy="58" r="3" fill="#423E3C" />
+            <circle cx="61" cy="58" r="3" fill="#423E3C" />
+            <circle cx="40" cy="57" r="1" fill="#FFFFFF" />
+            <circle cx="62" cy="57" r="1" fill="#FFFFFF" />
+            <polygon points="50,64 47,62 53,62" fill="#BA7D79" />
+            <path d="M 50,64 L 50,68 M 46,70 C 48,72 50,68 50,68 C 50,68 52,72 54,70" stroke="#7C8F79" stroke-width="1.8" fill="none" stroke-linecap="round" />
+            <circle cx="64" cy="40" r="3" fill="#BA7D79" />
+          </svg>
+        </div>
+        <div class="zoo-titles">
+          <h1>
+            森之兔兔動物園
+            <span class="badge">莫蘭迪手帳</span>
+          </h1>
+          <p>待辦任務 ✦ 每日記帳 ✦ 兔兔養成與簽到</p>
+        </div>
+      </div>
+
+      <!-- 右側導覽與日夜模式開關 -->
+      <div class="header-actions">
+        <nav class="nav-tabs">
+          <button class="tab-btn active" id="tab-todo-btn" onclick="switchTab('todo')">
+            <span>🐰</span> 待辦清單
+          </button>
+          <button class="tab-btn" id="tab-expense-btn" onclick="switchTab('expense')">
+            <span>🥕</span> 每日記帳
+          </button>
+        </nav>
+        <!-- 日間/夜間模式按鈕 -->
+        <button class="theme-toggle-btn" id="theme-btn" onclick="toggleTheme()" title="切換日間 / 夜間模式">
+          <span id="theme-icon">☀️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         2. 每日簽到與胡蘿蔔兔子養成專區 (Daily Check-in & Bunny Ranch)
+         ==================================================================== -->
+    <section class="ranch-card">
+      <div class="ranch-top-row">
+        <div class="ranch-title-area">
+          <h3>
+            <span>🏡</span> 萌兔莊園・每日簽到養成
+          </h3>
+        </div>
+        <!-- 每日簽到按鈕 -->
+        <button class="checkin-btn" id="checkin-btn" onclick="handleDailyCheckIn()">
+          <span>🥕</span> 每日簽到領胡蘿蔔
+        </button>
+      </div>
+
+      <!-- 兩隻兔子展示卡片 -->
+      <div class="ranch-bunnies-row">
+        <!-- 第一隻兔子：白白 -->
+        <div class="bunny-card">
+          <div class="bunny-illus">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <circle cx="50" cy="55" r="32" fill="#FAF6F0" stroke="#7C8F79" stroke-width="2" />
+              <path d="M 38,32 C 34,12 28,5 36,2 C 44,0 45,18 43,32" fill="#FAF6F0" stroke="#7C8F79" stroke-width="2" />
+              <path d="M 62,32 C 66,12 72,5 64,2 C 56,0 55,18 57,32" fill="#FAF6F0" stroke="#7C8F79" stroke-width="2" />
+              <ellipse cx="36" cy="62" rx="4" ry="2.5" fill="#F4E7E6" />
+              <ellipse cx="64" cy="62" rx="4" ry="2.5" fill="#F4E7E6" />
+              <circle cx="42" cy="52" r="2.5" fill="#423E3C" />
+              <circle cx="58" cy="52" r="2.5" fill="#423E3C" />
+              <polygon points="50,57 47,55 53,55" fill="#BA7D79" />
+            </svg>
+          </div>
+          <div class="bunny-card-info">
+            <h4>🐰 園長「白白」 <span style="font-size:11px; color:var(--morandi-primary);">已入住</span></h4>
+            <p id="bunny1-status">狀態：精神奕奕，等待你的胡蘿蔔 🥕</p>
+          </div>
+        </div>
+
+        <!-- 第二隻兔子：麻糬 (鎖定/解鎖) -->
+        <div class="bunny-card" id="bunny2-card">
+          <div class="bunny-illus" id="bunny2-illus">
+            <!-- 鎖定狀態剪影 -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <circle cx="50" cy="55" r="32" fill="#E6DFD6" stroke="#C5B9AC" stroke-width="2" stroke-dasharray="4 2" />
+              <path d="M 36,32 C 30,14 24,8 32,5 C 40,2 43,18 41,32" fill="#E6DFD6" stroke="#C5B9AC" stroke-width="2" />
+              <path d="M 64,32 C 70,14 76,8 68,5 C 60,2 57,18 59,32" fill="#E6DFD6" stroke="#C5B9AC" stroke-width="2" />
+              <text x="50" y="62" font-size="20" text-anchor="middle" fill="#857C76">🔒</text>
+            </svg>
+          </div>
+          <div class="bunny-card-info">
+            <h4 id="bunny2-name">🐇 萌兔「麻糬」 <span id="bunny2-badge" style="font-size:11px; color:var(--text-muted);">(待解鎖)</span></h4>
+            <p id="bunny2-status">蒐集並餵滿 10 根胡蘿蔔即可解鎖！</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 胡蘿蔔進度條與餵食動作 -->
+      <div class="carrot-progress-container">
+        <div class="carrot-status-row">
+          <span>🥕 胡蘿蔔倉庫：<strong id="carrot-inventory-count" style="color:#D97706;">0</strong> 根</span>
+          <span id="carrot-progress-text">餵食進度：0 / 10 根</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="carrot-progress-fill"></div>
+        </div>
+        <div class="feed-action-row">
+          <span id="feed-hint-text">點擊下方按鈕餵食胡蘿蔔，餵飽兔子就可以迎接第二隻兔兔囉！</span>
+          <button class="feed-btn" id="feed-btn" onclick="handleFeedCarrot()">
+            🥕 餵食 1 根胡蘿蔔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         3. 每日氣象與降雨量圖騰 (Weather Card)
+         ==================================================================== -->
+    <section class="weather-card">
+      <div class="weather-info-left">
+        <div class="weather-totem-icon" id="weather-main-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+            <circle cx="8" cy="8" r="3" fill="var(--morandi-amber)" stroke="none"></circle>
+          </svg>
+        </div>
+        <div class="weather-text">
+          <h3 id="weather-summary">
+            今日天候：晴時多雲
+            <select class="weather-select" id="weather-mode-select" onchange="changeWeatherPreset(this.value)">
+              <option value="cloudy-rain">偶陣雨 (建議隨身攜帶雨傘)</option>
+              <option value="sunny">暖陽晴天 (適合兔子戶外漫步)</option>
+              <option value="overcast">涼爽陰天 (適合專注完成待辦)</option>
+              <option value="heavy-rain">綿綿雨天 (室內溫暖記帳)</option>
+            </select>
+          </h3>
+          <p id="weather-date-string">2026年10月1日 ✦ 兔兔氣象播報員在線中 🐾</p>
+        </div>
+      </div>
+
+      <div class="weather-metrics">
+        <div class="metric-item">
+          <div class="metric-icon rain" title="降雨量與機率">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="metric-label">降雨量 / 機率</div>
+            <div class="metric-value" id="weather-rain-val">12 mm (35%)</div>
+          </div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-icon temp" title="當前氣溫">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="metric-label">氣溫範圍</div>
+            <div class="metric-value" id="weather-temp-val">24°C ~ 28°C</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         4. 待辦事項園區 (加入日期、時間、分類色塊、三大分區)
+         ==================================================================== -->
+    <main id="section-todo" class="app-section">
+
+      <!-- 新增待辦事項卡片 -->
+      <div class="add-card">
+        <form id="todo-form" onsubmit="handleTodoSubmit(event)">
+          <!-- 主輸入框 -->
+          <div class="add-form-main-row">
+            <input 
+              type="text" 
+              id="todo-input" 
+              class="text-input" 
+              placeholder="新增待辦任務...例如：微積分期中考試、動物園志工" 
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="btn-primary">
+              <span>＋</span> 新增任務
+            </button>
+          </div>
+
+          <!-- 日期與時間選擇列 -->
+          <div class="add-form-datetime-row">
+            <div class="datetime-item">
+              <span>📅 到期日期：</span>
+              <input type="date" id="todo-date" class="datetime-input" />
+            </div>
+            <div class="datetime-item">
+              <span>⏰ 截止時間：</span>
+              <input type="time" id="todo-time" class="datetime-input" />
+            </div>
+          </div>
+
+          <!-- 分類色彩選擇 (考試、上課、打工、運動、家庭、其他) -->
+          <div class="category-chips">
+            <label>
+              <input type="radio" name="todo-cat" value="考試" class="chip-radio" checked>
+              <span class="chip-btn chip-exam">📖 考試</span>
+            </label>
+            <label>
+              <input type="radio" name="todo-cat" value="上課" class="chip-radio">
+              <span class="chip-btn chip-class">🎒 上課</span>
+            </label>
+            <label>
+              <input type="radio" name="todo-cat" value="打工" class="chip-radio">
+              <span class="chip-btn chip-work">💼 打工</span>
+            </label>
+            <label>
+              <input type="radio" name="todo-cat" value="運動" class="chip-radio">
+              <span class="chip-btn chip-sport">🎾 運動</span>
+            </label>
+            <label>
+              <input type="radio" name="todo-cat" value="家庭" class="chip-radio">
+              <span class="chip-btn chip-family">🏡 家庭</span>
+            </label>
+            <label>
+              <input type="radio" name="todo-cat" value="其他" class="chip-radio">
+              <span class="chip-btn chip-other">✨ 其他</span>
+            </label>
+          </div>
+        </form>
+      </div>
+
+      <!-- 三大狀態分區看板 (未完成、進行中、已完成) -->
+      <div class="boards-grid">
+        
+        <!-- 分區 1：未完成 -->
+        <section class="status-area area-pending">
+          <div class="area-header">
+            <h2 class="area-title">
+              <span>🟡</span> 未完成任務
+            </h2>
+            <span class="area-badge" id="count-pending">0 項</span>
+          </div>
+          <ul class="todo-list" id="list-pending"></ul>
+        </section>
+
+        <!-- 分區 2：進行中 -->
+        <section class="status-area area-progress">
+          <div class="area-header">
+            <h2 class="area-title">
+              <span>🔵</span> 進行中任務
+            </h2>
+            <span class="area-badge" id="count-progress">0 項</span>
+          </div>
+          <ul class="todo-list" id="list-progress"></ul>
+        </section>
+
+        <!-- 分區 3：已完成 -->
+        <section class="status-area area-completed">
+          <div class="area-header">
+            <h2 class="area-title">
+              <span>🟢</span> 已完成任務
+            </h2>
+            <span class="area-badge" id="count-completed">0 項</span>
+          </div>
+          <ul class="todo-list" id="list-completed"></ul>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ====================================================================
+         5. 每日記帳小本本 (Expense Section)
+         ==================================================================== -->
+    <main id="section-expense" class="app-section hidden">
+      
+      <div class="expense-overview">
+        <div class="expense-stat-card">
+          <div class="stat-icon-wrapper today">📅</div>
+          <div class="stat-content">
+            <h4>今日花費總計</h4>
+            <div class="amount" id="stat-today-amount">$0</div>
+          </div>
+        </div>
+
+        <div class="expense-stat-card">
+          <div class="stat-icon-wrapper total">🪙</div>
+          <div class="stat-content">
+            <h4>累計記錄總額</h4>
+            <div class="amount" id="stat-total-amount">$0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="expense-form-card">
+        <form id="expense-form" onsubmit="handleExpenseSubmit(event)">
+          <div class="expense-grid">
+            <input 
+              type="text" 
+              id="exp-title" 
+              class="text-input" 
+              placeholder="花費項目名稱...例如：胡蘿蔔午餐、文具筆記本" 
+              required
+            />
+            <input 
+              type="number" 
+              id="exp-amount" 
+              class="text-input" 
+              placeholder="金額 NT$" 
+              min="1" 
+              step="1" 
+              required
+            />
+            <select id="exp-category" class="select-input">
+              <option value="飲食">🍔 飲食</option>
+              <option value="娛樂">🎮 娛樂</option>
+              <option value="購物">🛍️ 購物</option>
+              <option value="交通">🚌 交通</option>
+              <option value="其他">🪙 其他</option>
+            </select>
+            <button type="submit" class="btn-primary">
+              <span>＋</span> 記錄花費
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="expense-history-card">
+        <div class="history-header">
+          <h3>近期花費明細</h3>
+          <span style="font-size: 13px; color: var(--text-muted);" id="expense-count-text">共 0 筆</span>
+        </div>
+        <ul class="expense-list" id="expense-list-container"></ul>
+      </div>
+
+    </main>
+
+    <!-- 頁尾可愛兔兔留言 -->
+    <footer class="zoo-footer-quote">
+      <span>🐇</span>
+      <span>兔兔動物園：每天簽到領蘿蔔，好好生活，兔子會健康長大喔！🥕✨</span>
+    </footer>
+
+  </div>
+
+  <!-- ====================================================================
+       JavaScript 核心業務邏輯
+       ==================================================================== -->
+  <script>
+    // LocalStorage 金鑰
+    const STORAGE_TODO_KEY = 'morandi_zoo_todos_v3';
+    const STORAGE_EXPENSE_KEY = 'morandi_zoo_expenses_v3';
+    const STORAGE_RANCH_KEY = 'morandi_zoo_ranch_data';
+    const STORAGE_THEME_KEY = 'morandi_zoo_theme';
+
+    const STATUS = {
+      PENDING: 'pending',
+      PROGRESS: 'progress',
+      COMPLETED: 'completed'
+    };
+
+    const WEATHER_PRESETS = {
+      'cloudy-rain': {
+        summary: '今日天候：偶陣雨 (出門記得帶傘喔！)',
+        rain: '12 mm (35%)',
+        temp: '23°C ~ 27°C',
+        icon: `<svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path><path d="M8 21l-1 2M12 21l-1 2M16 21l-1 2" stroke-linecap="round"></path></svg>`
+      },
+      'sunny': {
+        summary: '今日天候：暖陽晴天 (適合兔子散步吃蘿蔔！)',
+        rain: '0 mm (5%)',
+        temp: '25°C ~ 30°C',
+        icon: `<svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>`
+      },
+      'overcast': {
+        summary: '今日天候：涼爽陰天 (微風徐徐，適合專注任務)',
+        rain: '2 mm (15%)',
+        temp: '22°C ~ 25°C',
+        icon: `<svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`
+      },
+      'heavy-rain': {
+        summary: '今日天候：綿綿大雨 (室內溫暖溫書)',
+        rain: '35 mm (85%)',
+        temp: '20°C ~ 23°C',
+        icon: `<svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>`
+      }
+    };
+
+    // 應用狀態
+    let todos = [];
+    let expenses = [];
+    let ranchData = {
+      carrots: 1,           // 擁有未餵食的胡蘿蔔
+      fedCount: 0,          // 已經餵食的胡蘿蔔數量 (滿 10 隻解鎖第二隻兔子)
+      hasSecondBunny: false,// 是否已解鎖第二隻兔子
+      lastCheckInDate: ''   // 最後簽到日期 'YYYY/MM/DD'
+    };
+
+    // 初始化載入
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      loadData();
+      renderAll();
+      initWeatherDate();
+      initDefaultDateTimeInputs();
+    });
+
+    // 預設日期輸入為今天
+    function initDefaultDateTimeInputs() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      document.getElementById('todo-date').value = `${y}-${m}-${d}`;
+    }
+
+    // ========================================================================
+    // 日間 / 夜間模式切換 (Theme Toggle)
+    // ========================================================================
+    function initTheme() {
+      const savedTheme = localStorage.getItem(STORAGE_THEME_KEY) || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeIcon(savedTheme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem(STORAGE_THEME_KEY, next);
+      updateThemeIcon(next);
+    }
+
+    function updateThemeIcon(theme) {
+      const icon = document.getElementById('theme-icon');
+      if (theme === 'dark') {
+        icon.textContent = '🌙';
+        document.getElementById('theme-btn').title = '目前為夜間模式，點擊切換日間模式';
+      } else {
+        icon.textContent = '☀️';
+        document.getElementById('theme-btn').title = '目前為日間模式，點擊切換夜間模式';
+      }
+    }
+
+    // ========================================================================
+    // 資料讀取與儲存
+    // ========================================================================
+    function loadData() {
+      try {
+        const storedTodos = localStorage.getItem(STORAGE_TODO_KEY);
+        todos = storedTodos ? JSON.parse(storedTodos) : [
+          { id: '1', text: '複習期中考試範圍', category: '考試', date: getTodayDateString(), time: '14:00', status: STATUS.PENDING, createdAt: Date.now() },
+          { id: '2', text: '完成上課簡報檔案', category: '上課', date: getTodayDateString(), time: '16:30', status: STATUS.PROGRESS, createdAt: Date.now() },
+          { id: '3', text: '公園慢跑 30 分鐘', category: '運動', date: getTodayDateString(), time: '', status: STATUS.COMPLETED, createdAt: Date.now() }
+        ];
+
+        const storedExpenses = localStorage.getItem(STORAGE_EXPENSE_KEY);
+        expenses = storedExpenses ? JSON.parse(storedExpenses) : [
+          { id: '1', title: '兔兔莊園三明治', amount: 85, category: '飲食', date: getTodayDateString(), createdAt: Date.now() }
+        ];
+
+        const storedRanch = localStorage.getItem(STORAGE_RANCH_KEY);
+        if (storedRanch) {
+          ranchData = { ...ranchData, ...JSON.parse(storedRanch) };
+        }
+      } catch (e) {
+        console.error('LocalStorage 讀取失敗', e);
+      }
+    }
+
+    function saveTodos() {
+      localStorage.setItem(STORAGE_TODO_KEY, JSON.stringify(todos));
+    }
+
+    function saveExpenses() {
+      localStorage.setItem(STORAGE_EXPENSE_KEY, JSON.stringify(expenses));
+    }
+
+    function saveRanch() {
+      localStorage.setItem(STORAGE_RANCH_KEY, JSON.stringify(ranchData));
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function getCategoryTagClass(category) {
+      switch (category) {
+        case '考試': return 'tag-exam';
+        case '上課': return 'tag-class';
+        case '打工': return 'tag-work';
+        case '運動': return 'tag-sport';
+        case '家庭': return 'tag-family';
+        default: return 'tag-other';
+      }
+    }
+
+    // ========================================================================
+    // 每日簽到與兔子養成 (Check-in & Rabbit Ranch)
+    // ========================================================================
+    function renderRanch() {
+      const todayStr = getTodayDateString();
+      const checkinBtn = document.getElementById('checkin-btn');
+
+      // 檢查今天是否已簽到
+      if (ranchData.lastCheckInDate === todayStr) {
+        checkinBtn.disabled = true;
+        checkinBtn.innerHTML = `<span>✓</span> 今日已簽到 (已領 🥕)`;
+      } else {
+        checkinBtn.disabled = false;
+        checkinBtn.innerHTML = `<span>🥕</span> 每日簽到領胡蘿蔔`;
+      }
+
+      // 更新胡蘿蔔庫存
+      document.getElementById('carrot-inventory-count').textContent = ranchData.carrots;
+
+      // 更新餵食進度 (上限 10 根解鎖第二隻)
+      const fed = ranchData.fedCount;
+      const progressPercent = Math.min(100, (fed / 10) * 100);
+      document.getElementById('carrot-progress-fill').style.width = `${progressPercent}%`;
+
+      if (ranchData.hasSecondBunny) {
+        document.getElementById('carrot-progress-text').textContent = `已成功餵飽 10 根！已迎來第二隻兔子 🐇✨ (累計餵食 ${fed} 根)`;
+        document.getElementById('feed-hint-text').textContent = `兩隻兔子都吃得飽飽的，感情超好！繼續餵食保持活力吧 🥕`;
+      } else {
+        document.getElementById('carrot-progress-text').textContent = `餵食進度：${fed} / 10 根 (${10 - fed} 根解鎖第二隻)`;
+        document.getElementById('feed-hint-text').textContent = `目前擁有 ${ranchData.carrots} 根胡蘿蔔，快餵食讓白白飽餐一頓吧！`;
+      }
+
+      // 餵食按鈕狀態
+      const feedBtn = document.getElementById('feed-btn');
+      feedBtn.disabled = (ranchData.carrots <= 0);
+
+      // 第二隻兔子 UI 狀態
+      const bunny2Card = document.getElementById('bunny2-card');
+      const bunny2Illus = document.getElementById('bunny2-illus');
+      const bunny2Name = document.getElementById('bunny2-name');
+      const bunny2Badge = document.getElementById('bunny2-badge');
+      const bunny2Status = document.getElementById('bunny2-status');
+
+      if (ranchData.hasSecondBunny) {
+        bunny2Card.classList.remove('locked');
+        bunny2Badge.style.color = 'var(--morandi-amber)';
+        bunny2Badge.textContent = '已解鎖入住';
+        bunny2Status.textContent = '狀態：悠閒蹦跳中，和白白一起幸福生活！🌸';
+        bunny2Illus.innerHTML = `
+          <svg viewBox="0 0 100 100" width="100%" height="100%">
+            <!-- 垂耳萌兔麻糬 (奶茶暖咖啡色) -->
+            <path d="M 28,45 C 18,52 14,70 20,78 C 26,85 34,70 34,50" fill="#EBD8C3" stroke="#BA9672" stroke-width="2" />
+            <path d="M 72,45 C 82,52 86,70 80,78 C 74,85 66,70 66,50" fill="#EBD8C3" stroke="#BA9672" stroke-width="2" />
+            <circle cx="50" cy="55" r="30" fill="#F7EFE6" stroke="#BA9672" stroke-width="2" />
+            <ellipse cx="36" cy="62" rx="4" ry="2.5" fill="#F4E7E6" />
+            <ellipse cx="64" cy="62" rx="4" ry="2.5" fill="#F4E7E6" />
+            <circle cx="41" cy="52" r="2.5" fill="#423E3C" />
+            <circle cx="59" cy="52" r="2.5" fill="#423E3C" />
+            <polygon points="50,57 47,55 53,55" fill="#BA7D79" />
+            <!-- 蝴蝶結點綴 -->
+            <polygon points="46,30 50,34 46,38" fill="#BA7D79" />
+            <polygon points="54,30 50,34 54,38" fill="#BA7D79" />
+            <circle cx="50" cy="34" r="2.5" fill="#FAF6F0" />
+          </svg>
+        `;
+      } else {
+        bunny2Card.classList.add('locked');
+        bunny2Badge.style.color = 'var(--text-muted)';
+        bunny2Badge.textContent = '(待解鎖)';
+        bunny2Status.textContent = `還差 ${Math.max(0, 10 - fed)} 根胡蘿蔔解鎖！`;
+      }
+    }
+
+    // 執行簽到
+    function handleDailyCheckIn() {
+      const todayStr = getTodayDateString();
+      if (ranchData.lastCheckInDate === todayStr) {
+        alert('🐰 今天已經簽到過囉！明天再來領取美味胡蘿蔔吧～');
+        return;
+      }
+
+      ranchData.carrots += 1;
+      ranchData.lastCheckInDate = todayStr;
+      saveRanch();
+      renderRanch();
+
+      alert('🎉 簽到成功！獲得了一根新鮮大胡蘿蔔 🥕\n快去餵食兔子累積親密度吧！');
+    }
+
+    // 執行餵食胡蘿蔔
+    function handleFeedCarrot() {
+      if (ranchData.carrots <= 0) {
+        alert('🥕 倉庫裡沒有胡蘿蔔了！請記得每日簽到領取喔～');
+        return;
+      }
+
+      ranchData.carrots -= 1;
+      ranchData.fedCount += 1;
+
+      // 檢查是否達成 10 根解鎖第二隻兔子
+      if (ranchData.fedCount >= 10 && !ranchData.hasSecondBunny) {
+        ranchData.hasSecondBunny = true;
+        saveRanch();
+        renderRanch();
+        alert('🎊 恭喜你！白白已經吃飽飽了！\n✨ 成功解鎖第二隻可愛垂耳兔「麻糬」入駐動物園！🐇🥕\n現在你有兩隻萌兔小夥伴陪你一起生活囉！');
+        return;
+      }
+
+      saveRanch();
+      renderRanch();
+    }
+
+    // ========================================================================
+    // 待辦事項邏輯 (包含日期與時間)
+    // ========================================================================
+    function handleTodoSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('todo-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const dateVal = document.getElementById('todo-date').value; // 'YYYY-MM-DD'
+      const timeVal = document.getElementById('todo-time').value; // 'HH:mm'
+
+      const checkedRadio = document.querySelector('input[name="todo-cat"]:checked');
+      const category = checkedRadio ? checkedRadio.value : '其他';
+
+      const newTodo = {
+        id: Date.now().toString() + Math.random().toString(36).substring(2, 6),
+        text,
+        category,
+        date: dateVal || '',
+        time: timeVal || '',
+        status: STATUS.PENDING,
+        createdAt: Date.now()
+      };
+
+      todos.unshift(newTodo);
+      saveTodos();
+      renderTodos();
+
+      input.value = '';
+      input.focus();
+    }
+
+    function cycleTodoStatus(id) {
+      todos = todos.map(todo => {
+        if (todo.id === id) {
+          let next;
+          if (todo.status === STATUS.PENDING) next = STATUS.PROGRESS;
+          else if (todo.status === STATUS.PROGRESS) next = STATUS.COMPLETED;
+          else next = STATUS.PENDING;
+          return { ...todo, status: next };
+        }
+        return todo;
+      });
+      saveTodos();
+      renderTodos();
+    }
+
+    function setTodoStatus(id, newStatus) {
+      todos = todos.map(todo => {
+        if (todo.id === id) {
+          return { ...todo, status: newStatus };
+        }
+        return todo;
+      });
+      saveTodos();
+      renderTodos();
+    }
+
+    function deleteTodo(id) {
+      todos = todos.filter(todo => todo.id !== id);
+      saveTodos();
+      renderTodos();
+    }
+
+    function renderTodos() {
+      const listPending = document.getElementById('list-pending');
+      const listProgress = document.getElementById('list-progress');
+      const listCompleted = document.getElementById('list-completed');
+
+      listPending.innerHTML = '';
+      listProgress.innerHTML = '';
+      listCompleted.innerHTML = '';
+
+      const pendingItems = todos.filter(t => t.status === STATUS.PENDING);
+      const progressItems = todos.filter(t => t.status === STATUS.PROGRESS);
+      const completedItems = todos.filter(t => t.status === STATUS.COMPLETED);
+
+      document.getElementById('count-pending').textContent = `${pendingItems.length} 項`;
+      document.getElementById('count-progress').textContent = `${progressItems.length} 項`;
+      document.getElementById('count-completed').textContent = `${completedItems.length} 項`;
+
+      renderListBranch(listPending, pendingItems, '目前沒有未完成任務，新增事項開始規劃吧！🌱');
+      renderListBranch(listProgress, progressItems, '沒有進行中的任務，步調悠閒 🐾');
+      renderListBranch(listCompleted, completedItems, '尚未完成任務，打勾後會自動分類到這裡喔 🥕');
+    }
+
+    function renderListBranch(container, items, emptyNotice) {
+      if (items.length === 0) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'empty-placeholder';
+        placeholder.textContent = emptyNotice;
+        container.appendChild(placeholder);
+        return;
+      }
+
+      items.forEach(todo => {
+        const li = document.createElement('li');
+        li.className = `todo-card ${todo.status}`;
+        li.dataset.id = todo.id;
+
+        let checkIconSvg = '';
+        if (todo.status === STATUS.PENDING) {
+          checkIconSvg = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle></svg>`;
+        } else if (todo.status === STATUS.PROGRESS) {
+          checkIconSvg = `<svg viewBox="0 0 24 24"><path d="M12 2v20M12 12a10 10 0 0 0 10-10"></path></svg>`;
+        } else {
+          checkIconSvg = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        }
+
+        const tagClass = getCategoryTagClass(todo.category);
+
+        // 格式化日期與時間標籤
+        let datetimeBadgeHtml = '';
+        if (todo.date || todo.time) {
+          const formattedDate = todo.date ? todo.date.replace(/-/g, '/') : '';
+          datetimeBadgeHtml = `
+            <span class="todo-due-badge">
+              ${formattedDate ? `<span>📅 ${formattedDate}</span>` : ''}
+              ${todo.time ? `<span>⏰ ${todo.time}</span>` : ''}
+            </span>
+          `;
+        }
+
+        li.innerHTML = `
+          <div class="todo-main">
+            <button 
+              class="status-check-btn" 
+              onclick="cycleTodoStatus('${todo.id}')" 
+              title="點擊切換狀態（未完成 ➔ 進行中 ➔ 完成）"
+            >
+              ${checkIconSvg}
+            </button>
+            <span class="category-tag ${tagClass}">${escapeHtml(todo.category)}</span>
+            <div class="todo-body-text">
+              <span class="todo-title">${escapeHtml(todo.text)}</span>
+              ${datetimeBadgeHtml}
+            </div>
+          </div>
+
+          <div class="todo-actions">
+            <select 
+              class="status-dropdown" 
+              onchange="setTodoStatus('${todo.id}', this.value)"
+              title="快速移動分類至其他區域"
+            >
+              <option value="${STATUS.PENDING}" ${todo.status === STATUS.PENDING ? 'selected' : ''}>🟡 未完成</option>
+              <option value="${STATUS.PROGRESS}" ${todo.status === STATUS.PROGRESS ? 'selected' : ''}>🔵 進行中</option>
+              <option value="${STATUS.COMPLETED}" ${todo.status === STATUS.COMPLETED ? 'selected' : ''}>🟢 已完成</option>
+            </select>
+            <button 
+              class="btn-icon-delete" 
+              onclick="deleteTodo('${todo.id}')" 
+              title="移除此項待辦"
+            >
+              <svg viewBox="0 0 24 24">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+
+        container.appendChild(li);
+      });
+    }
+
+    // ========================================================================
+    // 記帳功能邏輯
+    // ========================================================================
+    function handleExpenseSubmit(e) {
+      e.preventDefault();
+      const titleInput = document.getElementById('exp-title');
+      const amountInput = document.getElementById('exp-amount');
+      const catSelect = document.getElementById('exp-category');
+
+      const title = titleInput.value.trim();
+      const amount = parseFloat(amountInput.value);
+      const category = catSelect.value;
+
+      if (!title || isNaN(amount) || amount <= 0) return;
+
+      const newExpense = {
+        id: Date.now().toString(),
+        title,
+        amount,
+        category,
+        date: getTodayDateString(),
+        createdAt: Date.now()
+      };
+
+      expenses.unshift(newExpense);
+      saveExpenses();
+      renderExpenses();
+
+      titleInput.value = '';
+      amountInput.value = '';
+      titleInput.focus();
+    }
+
+    function deleteExpense(id) {
+      expenses = expenses.filter(exp => exp.id !== id);
+      saveExpenses();
+      renderExpenses();
+    }
+
+    function getExpenseCatBadge(category) {
+      switch (category) {
+        case '飲食': return { cls: 'exp-food', icon: '🍔' };
+        case '娛樂': return { cls: 'exp-play', icon: '🎮' };
+        case '購物': return { cls: 'exp-shop', icon: '🛍️' };
+        case '交通': return { cls: 'exp-traffic', icon: '🚌' };
+        default: return { cls: 'exp-other', icon: '🪙' };
+      }
+    }
+
+    function renderExpenses() {
+      const container = document.getElementById('expense-list-container');
+      const todayStr = getTodayDateString();
+
+      container.innerHTML = '';
+
+      if (expenses.length === 0) {
+        container.innerHTML = `
+          <div class="empty-placeholder">
+            目前還沒有記帳紀錄，點擊上方開始記錄今天的第一筆花費吧！🥕
+          </div>
+        `;
+      } else {
+        expenses.forEach(exp => {
+          const li = document.createElement('li');
+          li.className = 'expense-item';
+          const badge = getExpenseCatBadge(exp.category);
+
+          li.innerHTML = `
+            <div class="expense-left">
+              <span class="expense-category-badge ${badge.cls}">
+                <span>${badge.icon}</span> ${escapeHtml(exp.category)}
+              </span>
+              <div>
+                <div class="expense-name">${escapeHtml(exp.title)}</div>
+                <div class="expense-date">${exp.date || todayStr}</div>
+              </div>
+            </div>
+            <div class="expense-right">
+              <span class="expense-amount">$${Number(exp.amount).toLocaleString()}</span>
+              <button 
+                class="btn-icon-delete" 
+                onclick="deleteExpense('${exp.id}')"
+                title="刪除花費紀錄"
+              >
+                <svg viewBox="0 0 24 24">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                </svg>
+              </button>
+            </div>
+          `;
+          container.appendChild(li);
+        });
+      }
+
+      const todayTotal = expenses
+        .filter(exp => exp.date === todayStr)
+        .reduce((sum, exp) => sum + Number(exp.amount), 0);
+
+      const allTotal = expenses
+        .reduce((sum, exp) => sum + Number(exp.amount), 0);
+
+      document.getElementById('stat-today-amount').textContent = `$${todayTotal.toLocaleString()}`;
+      document.getElementById('stat-total-amount').textContent = `$${allTotal.toLocaleString()}`;
+      document.getElementById('expense-count-text').textContent = `共 ${expenses.length} 筆`;
+    }
+
+    // ========================================================================
+    // 天氣與分頁工具函式
+    // ========================================================================
+    function switchTab(tab) {
+      const todoSection = document.getElementById('section-todo');
+      const expenseSection = document.getElementById('section-expense');
+      const todoBtn = document.getElementById('tab-todo-btn');
+      const expenseBtn = document.getElementById('tab-expense-btn');
+
+      if (tab === 'todo') {
+        todoSection.classList.remove('hidden');
+        expenseSection.classList.add('hidden');
+        todoBtn.classList.add('active');
+        expenseBtn.classList.remove('active');
+      } else {
+        todoSection.classList.add('hidden');
+        expenseSection.classList.remove('hidden');
+        todoBtn.classList.remove('active');
+        expenseBtn.classList.add('active');
+        renderExpenses();
+      }
+    }
+
+    function changeWeatherPreset(key) {
+      const preset = WEATHER_PRESETS[key] || WEATHER_PRESETS['cloudy-rain'];
+      document.getElementById('weather-summary').childNodes[0].nodeValue = preset.summary + ' ';
+      document.getElementById('weather-rain-val').textContent = preset.rain;
+      document.getElementById('weather-temp-val').textContent = preset.temp;
+      document.getElementById('weather-main-icon').innerHTML = preset.icon;
+    }
+
+    function initWeatherDate() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const date = now.getDate();
+      const weekDays = ['週日', '週一', '週二', '週三', '週四', '週五', '週六'];
+      const dayName = weekDays[now.getDay()];
+      document.getElementById('weather-date-string').textContent = 
+        `${year}年${month}月${date}日 ${dayName} ✦ 兔兔氣象播報員在線中 🐾`;
+    }
+
+    function getTodayDateString() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return `${y}/${m}/${d}`;
+    }
+
+    function renderAll() {
+      renderRanch();
+      renderTodos();
+      renderExpenses();
+    }
+  </script>
+</body>
+</html>
